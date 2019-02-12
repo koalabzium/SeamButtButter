@@ -50,9 +50,9 @@ namespace WebApplication4.Pages
             //Customer = (Customer)formatter.Deserialize(stream);
             //stream.Close();
 
-            var ser = Customer.Serialize();
+          
             
-            _sbb.Add(Customer.Id, ser);
+            _sbb.Add(Customer.Id, Customer);
             //SBB.add(ser, Customer.
 
 

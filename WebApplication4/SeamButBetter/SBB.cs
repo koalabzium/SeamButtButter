@@ -37,8 +37,10 @@ namespace WebApplication4
             
         }
 
-        public void Add(int id, string json)
+        public void Add<T>(int id, T obj)
         {
+
+            var json = JsonConvert.SerializeObject(obj);
 
             //using (StreamReader file = File.OpenText(Path))
             //{
@@ -61,7 +63,7 @@ namespace WebApplication4
                 serializer.Serialize(file, context);
             }
 
-            //ContextList = (ContextList)JsonConvert.DeserializeObject(context, typeof(ContextList));
+            ContextList = (ContextList)JsonConvert.DeserializeObject(context, typeof(ContextList));
 
             //TODO dodać sprawdzanie czy już taki jest!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
