@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace WebApplication4
@@ -47,26 +49,51 @@ namespace WebApplication4
             //    JsonSerializer serializer = new JsonSerializer();
             //    ContextList = (ContextList)serializer.Deserialize(file, typeof(ContextList));
             //}
+            string text = File.ReadAllText(Path);
 
+            text = Regex.Unescape(text);
+
+            var exists = false;
 
             Context tmp = new Context(id, json);
 
-         
-            ContextList.Append(tmp);
-
-
-            var context = JsonConvert.SerializeObject(ContextList);
-
-            using (StreamWriter file = File.CreateText(Path))
+            if (text.Length > 0)
             {
-                JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(file, context);
+                text = text.Remove(0, 1);
+                text = text.Remove(text.Length - 1, 1);
+
+                ContextList = (ContextList)JsonConvert.DeserializeObject(text, typeof(ContextList));
+
+                foreach (var c in ContextList.Contexts)
+                {
+                    if (c.ContextId == tmp.ContextId)
+                    {
+                        exists = true;
+                    }
+                }
+
             }
 
-            ContextList = (ContextList)JsonConvert.DeserializeObject(context, typeof(ContextList));
 
-            //TODO dodać sprawdzanie czy już taki jest!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            if (!exists)
+            {
+                ContextList.Append(tmp);
+                var settings = new JsonSerializerSettings()
+                {
+                    StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
+                };
 
+
+                var context = JsonConvert.SerializeObject(ContextList, settings);
+
+
+                using (StreamWriter file = File.CreateText(Path))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    serializer.Serialize(file, context);
+                }
+
+            }
 
         }
 
