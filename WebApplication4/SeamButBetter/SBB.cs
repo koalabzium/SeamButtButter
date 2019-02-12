@@ -9,20 +9,51 @@ namespace WebApplication4
 {
     public class SBB
     {
-        public string Path { get; set; }
-        public Context Con { get; set; }
+        private static SBB instance = null;
+        private static readonly object padlock = new object();
 
-        public SBB(string path)
+        public string Path = "NaszDzejsonek.json";
+        public ContextList ContextList { get; set; }
+
+        public static SBB Instance
         {
-            Path = path;
+            get
+            {
+                lock (padlock)
+                {
+                    if (instance == null)
+                    {
+                        instance = new SBB();
+                    }
+                    return instance;
+                }
+            }
+        }
+
+
+        private SBB()
+        {
+            ContextList = new ContextList();
+            
         }
 
         public void Add(int id, string json)
         {
 
-            var context = JsonConvert.SerializeObject(new Context(id, json));
+            //using (StreamReader file = File.OpenText(Path))
+            //{
+            //    JsonSerializer serializer = new JsonSerializer();
+            //    ContextList = (ContextList)serializer.Deserialize(file, typeof(ContextList));
+            //}
 
 
+            Context tmp = new Context(id, json);
+
+         
+            ContextList.Append(tmp);
+
+
+            var context = JsonConvert.SerializeObject(ContextList);
 
             using (StreamWriter file = File.CreateText(Path))
             {
@@ -30,10 +61,15 @@ namespace WebApplication4
                 serializer.Serialize(file, context);
             }
 
+            //ContextList = (ContextList)JsonConvert.DeserializeObject(context, typeof(ContextList));
 
-            Con = (Context)JsonConvert.DeserializeObject(context, typeof(Context));
+            //TODO dodać sprawdzanie czy już taki jest!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
+        }
+
+        public void Get(int id)
+        {
 
         }
     }

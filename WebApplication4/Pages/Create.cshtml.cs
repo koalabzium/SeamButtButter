@@ -15,11 +15,14 @@ namespace WebApplication4.Pages
     public class CreateModel : PageModel
     {
         private readonly AppDbContext _db;
+        private readonly SBB _sbb;
 
         public CreateModel(AppDbContext db)
         {
             _db = db;
+            _sbb = SBB.Instance;
         }
+
 
         
         [BindProperty]
@@ -48,8 +51,8 @@ namespace WebApplication4.Pages
             //stream.Close();
 
             var ser = Customer.Serialize();
-            SBB mojabiblioteka = new SBB("./NaszDzejsonek.json");
-            mojabiblioteka.Add(Customer.Id, ser);
+            
+            _sbb.Add(Customer.Id, ser);
             //SBB.add(ser, Customer.
 
 
