@@ -14,23 +14,20 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var product in Model.Customers)
-            {
-                <tr>
-
-
-                    <td>@product.Id</td>
-                    <td>@product.Name</td>
-                    <td>@product.Address</td>
-                    <td>
-                        <a asp-page="/Edit" asp-page-handler="product.Id">edit</a>
-                        <button type="submit" asp-page-handler="kupa"
-                                asp-route-id="product.Id">
-                            delete
-                        </button>
-                    </td>
-                </tr>
-            }
+            
+            <tr>
+                <td>@Model.Customer.Id</td>
+                <td>@Model.Customer.Name</td>
+                <td>@Model.Customer.Address</td>
+                <td>
+                    <a asp-page="/Edit" asp-page-handler="@Model.Customer.Id">edit</a>
+                    <button type="submit" asp-page-handler="kupa"
+                            asp-route-id="@Model.Customer.Id">
+                        delete
+                    </button>
+                </td>
+            </tr>
+            
         </tbody>
 
     </table>

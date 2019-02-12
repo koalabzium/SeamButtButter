@@ -16,15 +16,27 @@ namespace WebApplication4.Pages
         public IList<Customer> Customers { get; private set; }
         public Customer Customer { get; set; }
 
+        private readonly SBB _sbb;
+
         public IndexModel(AppDbContext db)
         {
             _db = db;
+            _sbb = SBB.Instance("./NaszDzejsonek.json");
+
         }
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            Customers = await _db.Customers.ToListAsync();
-            Customer = await _db.Customers.FindAsync(id);
+
+            var customer = _sbb.Get(id);
+            if (customer == null)
+            {
+                return RedirectToPage("/Create");
+            }
+            Customer = new Customer();
+            Customer = Customer.Deserialize(customer);
+            //Customers = await _db.Customers.ToListAsync();
+            //Customer = await _db.Customers.FindAsync(id);
             if (Customer == null)
             {
                 return RedirectToPage("/Create");

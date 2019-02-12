@@ -11,10 +11,12 @@ namespace WebApplication4.Pages
     public class Step1Model : PageModel
     {
         private readonly AppDbContext _db;
+        private readonly SBB _sbb;
 
         public Step1Model(AppDbContext db)
         {
             _db = db;
+            _sbb = SBB.Instance("./NaszDzejsonek");
         }
 
         [BindProperty]
@@ -22,11 +24,21 @@ namespace WebApplication4.Pages
 
         public async Task<IActionResult> OnGetAsync(int handler)
         {
-            Customer = await _db.Customers.FindAsync(handler);
-            if (Customer == null)
+
+            var customer = _sbb.Get(handler);
+            if (customer == null)
             {
                 return RedirectToPage("/Index", new { id = handler });
             }
+            Customer = new Customer();
+            Customer = Customer.Deserialize(customer);
+
+            //Customer = await _db.Customers.FindAsync(handler);
+            //if (Customer == null)
+            //{
+            //    return RedirectToPage("/Index", new { id = handler });
+            //}
+
             return Page();
         }
 
@@ -36,6 +48,8 @@ namespace WebApplication4.Pages
             {
                 return Page();
             }
+
+
 
             _db.Attach(Customer).State = EntityState.Modified;
 

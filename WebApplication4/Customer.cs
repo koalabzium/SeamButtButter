@@ -24,7 +24,8 @@ namespace WebApplication4
 
         public Customer Deserialize(string obj)
         {
-            return (Customer) JsonConvert.DeserializeObject(obj);
+
+            return (Customer) JsonConvert.DeserializeObject(obj, typeof(Customer));
         }
 
 

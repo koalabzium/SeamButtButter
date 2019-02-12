@@ -20,7 +20,7 @@ namespace WebApplication4.Pages
         public CreateModel(AppDbContext db)
         {
             _db = db;
-            _sbb = SBB.Instance;
+            _sbb = SBB.Instance("NaszDzejsonek.json");
         }
 
 
@@ -33,57 +33,36 @@ namespace WebApplication4.Pages
         public async Task<IActionResult> OnPostAsync()
         {
 
-            //Customer = Biblioteka.serialize(Customer)
-            //Biblioteka.add(id, Customer)
-
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            //IFormatter formatter = new BinaryFormatter();
-            //Stream stream = new FileStream("MyFile.bin", FileMode.Create, FileAccess.Write, FileShare.None);
-            //formatter.Serialize(stream, Customer);
-            //stream.Close();
-
-            //stream = new FileStream("MyFile.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
-            //Customer = (Customer)formatter.Deserialize(stream);
-            //stream.Close();
-
-          
-            
             _sbb.Add(Customer.Id, Customer);
+
             //SBB.add(ser, Customer.
 
+            
+            //var exists = false;
+            //Customers = await _db.Customers.ToListAsync();
 
+            //if (Customers != null)
+            //{
+            //    foreach (var c in Customers)
+            //    {
+            //        if (c.Id == Customer.Id)
+            //        {
+            //            exists = true;
+            //            break;
+            //        }
+            //    }
+            //}
 
-
-
-
-            var exists = false;
-            Customers = await _db.Customers.ToListAsync();
-
-            if (Customers != null)
-            {
-                foreach (var c in Customers)
-                {
-                    if (c.Id == Customer.Id)
-                    {
-                        exists = true;
-                        break;
-                    }
-                }
-            }
-
-            if (!exists)
-            {
-                _db.Customers.Add(Customer);
-                await _db.SaveChangesAsync();
-            }
-
-
-
-
+            //if (!exists)
+            //{
+            //    _db.Customers.Add(Customer);
+            //    await _db.SaveChangesAsync();
+            //}
 
 
             return RedirectToPage("/Index", new { id = Customer.Id });

@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -14,29 +16,26 @@ namespace WebApplication4
         private static SBB instance = null;
         private static readonly object padlock = new object();
 
-        public string Path = "NaszDzejsonek.json";
+        public string Path;
         public ContextList ContextList { get; set; }
 
-        public static SBB Instance
+        public static SBB Instance(string _path)
         {
-            get
+            lock (padlock)
             {
-                lock (padlock)
+                if (instance == null)
                 {
-                    if (instance == null)
-                    {
-                        instance = new SBB();
-                    }
-                    return instance;
+                    instance = new SBB(_path);
                 }
+                return instance;
             }
         }
 
 
-        private SBB()
+        private SBB(string path)
         {
             ContextList = new ContextList();
-            
+            Path = path;
         }
 
         public void Add<T>(int id, T obj)
@@ -44,11 +43,6 @@ namespace WebApplication4
 
             var json = JsonConvert.SerializeObject(obj);
 
-            //using (StreamReader file = File.OpenText(Path))
-            //{
-            //    JsonSerializer serializer = new JsonSerializer();
-            //    ContextList = (ContextList)serializer.Deserialize(file, typeof(ContextList));
-            //}
             string text = File.ReadAllText(Path);
 
             text = Regex.Unescape(text);
@@ -97,9 +91,68 @@ namespace WebApplication4
 
         }
 
-        public void Get(int id)
-        {
 
+        public string Get(int id)
+        {
+            string toReturn = null;
+            string text = File.ReadAllText(Path);
+            text = Regex.Unescape(text);
+            if (text.Length > 0)
+            {
+                text = text.Remove(0, 1);
+                text = text.Remove(text.Length - 1, 1);
+
+                ContextList = (ContextList)JsonConvert.DeserializeObject(text, typeof(ContextList));
+
+
+
+                foreach (var c in ContextList.Contexts)
+                {
+                    if (c.ContextId == id)
+                    {
+                        var something = c.Values;
+                        return something;
+
+                    }
+                }
+
+            }
+
+            return (string)Convert.ChangeType(null, typeof(string));
         }
+
+
+        //public T Get<T>(int id)
+        //{
+        //    string toReturn = null;
+        //    string text = File.ReadAllText(Path);
+        //    text = Regex.Unescape(text);
+        //    if (text.Length > 0)
+        //    {
+        //        text = text.Remove(0, 1);
+        //        text = text.Remove(text.Length - 1, 1);
+
+        //        ContextList = (ContextList)JsonConvert.DeserializeObject(text, typeof(ContextList));
+
+
+
+        //        foreach (var c in ContextList.Contexts)
+        //        {
+        //            if (c.ContextId == id)
+        //            {
+        //                var something = c.Values;
+        //                using (MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(something)))
+        //                {
+        //                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(T));
+        //                    return (T)serializer.ReadObject(ms);
+        //                }
+
+        //            }
+        //        }
+
+        //    }
+
+        //    return (T)Convert.ChangeType(null, typeof(T));
+        //}
     }
 }
