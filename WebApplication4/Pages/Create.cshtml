@@ -1,0 +1,14 @@
+﻿@page
+@model WebApplication4.Pages.CreateModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Witaj!</h2>
+<p>Podaj swoje id</p>
+<form method="post">
+    <div asp-validation-summary="All"></div>
+    <div>Id: <input asp-for="Customer.Id"/></div>
+    <input type="submit"/>
+    
+</form>

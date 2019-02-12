@@ -1,0 +1,28 @@
+﻿@page 
+@model WebApplication4.Pages.Step1Model
+@{
+    ViewData["Title"] = "Step1";
+}
+
+<h2>Krok pierwszy dla użytkownika @Model.Customer.Id</h2>
+
+<form method="post">
+    <input asp-for="Customer.Id" type="hidden" />
+    <input asp-for="Customer.Address" type="hidden" />
+    <div>
+        <label asp-for="Customer.Name"></label>
+        <div>
+            <input asp-for="Customer.Name" />
+        </div>
+    </div>
+    <div>
+        <button type="submit">Next</button>
+    </div>
+</form>
+
+
+
+
+
+
+

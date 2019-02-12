@@ -1,0 +1,21 @@
+﻿@page
+@model WebApplication4.Pages.Step2Model
+@{
+    ViewData["Title"] = "Step2";
+}
+
+<h2>Step2 @Model.Customer.Id</h2>
+
+<form method="post">
+    <input asp-for="Customer.Id" type="hidden" />
+    <input asp-for="Customer.Name" type="hidden" />
+    <div>
+        <label asp-for="Customer.Address"></label>
+        <div>
+            <input asp-for="Customer.Address" />
+        </div>
+    </div>
+    <div>
+        <button type="submit">Save</button>
+    </div>
+</form>

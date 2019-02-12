@@ -1,0 +1,36 @@
+﻿@page
+@model ShoppingCartModel
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<form method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nazwa</th>
+                <th>Ilość</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.Products)
+            {
+            <tr>
+                <td>@product.Id</td>
+                <td>@product.Name</td>
+                <td>@product.Amount</td>
+                <td>
+                    <a asp-page="./Edit" asp-page-handler="@product.Id">edit</a>
+                    <button type="submit" asp-page-handler="kupa"
+                            asp-route-id="@product.Id">
+                        delete
+                    </button>
+                </td>
+            </tr>
+            }
+        </tbody>
+
+    </table>
+    <a asp-page="/Shopping">Kontynuuj zakupy</a>
+</form>
