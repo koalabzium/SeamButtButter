@@ -9,11 +9,20 @@ namespace WebApplication4
     {
         public int ContextId { get; set; }
         public string Values { get; set; }
+        public readonly DateTime CreationTime = DateTime.Now;
+        public int TimeOut { get; set; }
 
         public Context(int Id, string Json)
         {
             ContextId = Id;
             Values = Json;
+        }
+
+        public Context(int Id, string Json, int _TimeOut)
+        {
+            ContextId = Id;
+            Values = Json;
+            TimeOut = _TimeOut;
         }
 
         public Context()

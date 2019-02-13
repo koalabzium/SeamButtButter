@@ -16,27 +16,33 @@ namespace WebApplication4
         private static SBB instance = null;
         private static readonly object padlock = new object();
 
+        public int defaultTimeout;
         public string Path;
         public ContextList ContextList { get; set; }
 
-        public static SBB Instance(string _path)
+        public static SBB Instance(string _path, int Timeout = 0)
         {
             lock (padlock)
             {
                 if (instance == null)
                 {
-                    instance = new SBB(_path);
+                    instance = new SBB(_path, Timeout);
                 }
                 return instance;
             }
         }
 
 
-        private SBB(string path)
+        private SBB(string path, int Timeout = 0)
         {
             ContextList = new ContextList();
             Path = path;
+            defaultTimeout = Timeout;
         }
+
+
+
+
 
         public void Add<T>(int id, T obj)
         {
@@ -49,7 +55,7 @@ namespace WebApplication4
 
             var exists = false;
 
-            Context tmp = new Context(id, json);
+            Context tmp = new Context(id, json, defaultTimeout);
 
             if (text.Length > 0)
             {
@@ -94,7 +100,7 @@ namespace WebApplication4
 
         public string Get(int id)
         {
-            string toReturn = null;
+            CheckTimeout();
             string text = File.ReadAllText(Path);
             text = Regex.Unescape(text);
             if (text.Length > 0)
@@ -174,6 +180,38 @@ namespace WebApplication4
             Add(id, obj);
             
         }
+
+        public void CheckTimeout()
+        {
+            List<Context> toRemove = new List<Context>();
+            string text = File.ReadAllText(Path);
+            text = Regex.Unescape(text);
+            if (text.Length > 0)
+            {
+                text = text.Remove(0, 1);
+                text = text.Remove(text.Length - 1, 1);
+                ContextList = (ContextList)JsonConvert.DeserializeObject(text, typeof(ContextList));
+            }
+
+            foreach(Context c in ContextList.Contexts)
+            {
+                
+                if(c.TimeOut > 0)
+                {
+                    if(DateTime.Now.Subtract(c.CreationTime).TotalMinutes <= 0)
+                    {
+                        toRemove.Add(c);
+                    }
+                }
+            }
+
+            foreach(Context c in toRemove)
+            {
+                Delete(c.ContextId);
+            }
+
+        }
+
 
         //public T Get<T>(int id)
         //{
