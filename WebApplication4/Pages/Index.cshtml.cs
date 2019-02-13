@@ -27,7 +27,6 @@ namespace WebApplication4.Pages
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-
             var customer = _sbb.Get(id);
             if (customer == null)
             {
@@ -35,8 +34,7 @@ namespace WebApplication4.Pages
             }
             Customer = new Customer();
             Customer = Customer.Deserialize(customer);
-            //Customers = await _db.Customers.ToListAsync();
-            //Customer = await _db.Customers.FindAsync(id);
+            
             if (Customer == null)
             {
                 return RedirectToPage("/Create");
@@ -47,16 +45,7 @@ namespace WebApplication4.Pages
 
         public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
-            //var customer = await _db.Customers.FindAsync(id);
-
-            //if (customer != null)
-            //{
-            //    _db.Customers.Remove(customer);
-            //    await _db.SaveChangesAsync();
-            //}
-
             _sbb.Delete(id);
-
             return RedirectToPage();
         }
     }

@@ -11,10 +11,12 @@ namespace WebApplication4.SeamButBetter
         private readonly AppDbContext _db;
         public List<Context> ContextList { set; get; }
         public Context CurrentContext { set; get; }
+        public int DefaultTimeout { get; set; }
 
-        public TableDataGateway(AppDbContext db)
+        public TableDataGateway(AppDbContext db, int TimeOut)
         {
             _db = db;
+            DefaultTimeout = TimeOut;
         }
 
         public async Task<T> AddAsync<T>(int id, T obj)
@@ -45,31 +47,47 @@ namespace WebApplication4.SeamButBetter
 
         }
 
-        public void CheckTimeout()
+        public async Task<int> CheckTimeout()
         {
-            throw new NotImplementedException();
+            ContextList = await _db.Contexts.ToListAsync();
+            foreach(var c in ContextList)
+            {
+                if (DateTime.Now.Subtract(c.CreationTime).TotalMinutes >= DefaultTimeout)
+                {
+                    await Delete(c.Id);
+                }
+            }
+
+
+            return 0;
         }
 
-        public void Delete(int id)
+        public async Task<int> Delete(int id)
         {
-            //var Curre = await _db.Customers.FindAsync(id);
+            CurrentContext = await _db.Contexts.FindAsync(id);
 
-            //if (customer != null)
-            //{
-            //    _db.Customers.Remove(customer);
-            //    await _db.SaveChangesAsync();
-            //}
-            throw new NotImplementedException();
+            if (CurrentContext != null)
+            {
+                _db.Contexts.Remove(CurrentContext);
+                await _db.SaveChangesAsync();
+            }
+
+            return id;
         }
 
-        public string Get(int id)
+        public async Task<string> Get(int id)
         {
-            throw new NotImplementedException();
+            CurrentContext = await _db.Contexts.FindAsync(id);
+   
+            return CurrentContext.Values;
         }
 
-        public void Update<T>(int id, T obj)
+        public async Task<int> Update<T>(int id, T obj)
         {
-            throw new NotImplementedException();
+            await Delete(id);
+            await AddAsync<T>(id, obj);
+           
+            return id;
         }
     }
 }

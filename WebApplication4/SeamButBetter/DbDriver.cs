@@ -11,9 +11,9 @@ namespace WebApplication4.SeamButBetter
         public ContextList ContextList { set; get; }
 
 
-        public DbDriver(AppDbContext db)
+        public DbDriver(AppDbContext db, int Timeout = 0)
         {
-            tdg = new TableDataGateway(db);
+            tdg = new TableDataGateway(db, Timeout);
         }
 
         public void Add<T>(int id, T obj)
@@ -28,17 +28,17 @@ namespace WebApplication4.SeamButBetter
 
         public void Delete(int id)
         {
-            
+            tdg.Delete(id);
         }
 
         public string Get(int id)
         {
-            throw new NotImplementedException();
+            return Convert.ToString(tdg.Get(id));
         }
 
         public void Update<T>(int id, T obj)
         {
-            throw new NotImplementedException();
+            tdg.Update(id, obj);
         }
     }
 }
