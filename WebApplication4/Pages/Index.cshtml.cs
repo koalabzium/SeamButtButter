@@ -6,21 +6,19 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-
+using WebApplication4.SeamButBetter;
 
 namespace WebApplication4.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly AppDbContext _db;
         public IList<Customer> Customers { get; private set; }
         public Customer Customer { get; set; }
 
         private readonly SBB _sbb;
 
-        public IndexModel(AppDbContext db)
+        public IndexModel()
         {
-            _db = db;
             _sbb = SBB.Instance(new FileDriver("./NaszDzejsonek.json",1));
 
         }

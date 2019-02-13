@@ -32,8 +32,8 @@ namespace WebApplication4
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<AppDbContext>(options =>
-               options.UseInMemoryDatabase("name"));
+            //services.AddDbContext<AppDbContext>(options =>
+               //options.UseInMemoryDatabase("name"));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

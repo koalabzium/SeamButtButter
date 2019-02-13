@@ -29,7 +29,7 @@ namespace WebApplication4.SeamButBetter
             {
                 foreach (var c in ContextList)
                 {
-                    if (c.Id == CurrentContext.Id)
+                    if (c.GetId() == CurrentContext.GetId())
                     {
                         exists = true;
                         break;
@@ -54,7 +54,7 @@ namespace WebApplication4.SeamButBetter
             {
                 if (DateTime.Now.Subtract(c.CreationTime).TotalMinutes >= DefaultTimeout)
                 {
-                    await Delete(c.Id);
+                    await Delete(c.GetId());
                 }
             }
 
@@ -79,7 +79,7 @@ namespace WebApplication4.SeamButBetter
         {
             CurrentContext = await _db.Contexts.FindAsync(id);
    
-            return CurrentContext.Values;
+            return CurrentContext.GetValues();
         }
 
         public async Task<int> Update<T>(int id, T obj)

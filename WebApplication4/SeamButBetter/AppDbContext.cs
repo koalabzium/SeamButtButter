@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace WebApplication4
+namespace WebApplication4.SeamButBetter
 {
     public class AppDbContext : DbContext
     {

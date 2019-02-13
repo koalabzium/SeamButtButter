@@ -8,18 +8,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-
+using WebApplication4.SeamButBetter;
 
 namespace WebApplication4.Pages
 {
     public class CreateModel : PageModel
     {
-        private readonly AppDbContext _db;
         private readonly SBB _sbb;
 
-        public CreateModel(AppDbContext db)
+        public CreateModel()
         {
-            _db = db;
             _sbb = SBB.Instance(new FileDriver("NaszDzejsonek.json", 1));
         }
 

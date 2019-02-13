@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace WebApplication4
+namespace WebApplication4.SeamButBetter
 {
     public class FileDriver : IDriver
     {
@@ -58,6 +58,7 @@ namespace WebApplication4
             DateTime now = DateTime.Now;
             Context tmp = new Context(id, json, DefaultTimeout, now);
             Context toDelete = new Context();
+            ContextList = new ContextList();
 
             if (text.Length > 0)
             {
@@ -66,7 +67,7 @@ namespace WebApplication4
 
                 foreach (var c in ContextList.Contexts)
                 {
-                    if (c.Id == tmp.Id)
+                    if (c.GetId() == tmp.GetId())
                     {
                         exists = true;
 
@@ -79,7 +80,7 @@ namespace WebApplication4
                 }
             }
 
-            Delete(toDelete.Id);
+            Delete(toDelete.GetId());
 
             if (!exists)
             {
@@ -101,9 +102,9 @@ namespace WebApplication4
 
                 foreach (var c in ContextList.Contexts)
                 {
-                    if (c.Id == id)
+                    if (c.GetId() == id)
                     {
-                        var something = c.Values;
+                        var something = c.GetValues();
                         return something;
                     }
                 }
@@ -125,7 +126,7 @@ namespace WebApplication4
 
                 foreach (var c in ContextList.Contexts)
                 {
-                    if (c.Id == id)
+                    if (c.GetId() == id)
                     {
                         toDelete = c;
                     }
@@ -157,22 +158,23 @@ namespace WebApplication4
             {
                 text = RemoveFromText(text);
                 ContextList = (ContextList)JsonConvert.DeserializeObject(text, typeof(ContextList));
-            }
 
-            foreach (Context c in ContextList.Contexts)
-            {
-                if (c.TimeOut > 0)
+                foreach (Context c in ContextList.Contexts)
                 {
-                    if (DateTime.Now.Subtract(c.CreationTime).TotalMinutes >= DefaultTimeout)
+                    if (c.TimeOut > 0)
                     {
-                        toRemove.Add(c);
+                        if (DateTime.Now.Subtract(c.CreationTime).TotalMinutes >= DefaultTimeout)
+                        {
+                            toRemove.Add(c);
+                        }
                     }
                 }
-            }
 
-            foreach (Context c in toRemove)
-            {
-                Delete(c.Id);
+                foreach (Context c in toRemove)
+                {
+                    Delete(c.GetId());
+                }
+
             }
 
         }

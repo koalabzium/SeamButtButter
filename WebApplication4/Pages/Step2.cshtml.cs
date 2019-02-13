@@ -5,17 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using WebApplication4.SeamButBetter;
 
 namespace WebApplication4.Pages
 {
     public class Step2Model : PageModel
     {
-        private readonly AppDbContext _db;
         private SBB _sbb { get; set; }
 
-        public Step2Model(AppDbContext db)
+        public Step2Model()
         {
-            _db = db;
             _sbb = SBB.Instance(new FileDriver("./NaszDzejsonek"));
         }
 

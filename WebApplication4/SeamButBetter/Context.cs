@@ -1,15 +1,21 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApplication4
+namespace WebApplication4.SeamButBetter
 {
     public class Context
     {
-        public int Id { get; set; }
-        public string Values { get; set; }
+        [JsonProperty]
+        private int Id;
+
+        [JsonProperty]
+        private string Values;
+
         public DateTime CreationTime;
+
         public int TimeOut { get; set; }
 
         public Context(int Id, string Json)
@@ -30,5 +36,16 @@ namespace WebApplication4
         {
 
         }
+
+        public int GetId()
+        {
+            return Id;
+        }
+
+        public string GetValues()
+        {
+            return Values;
+        }
+
     }
 }
