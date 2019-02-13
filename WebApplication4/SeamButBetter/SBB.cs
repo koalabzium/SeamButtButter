@@ -54,6 +54,8 @@ namespace WebApplication4
             text = Regex.Unescape(text);
 
             var exists = false;
+            var now = DateTime.Now;
+            Context tmp = new Context(id, json, defaultTimeout, now);
 
             DateTime now = DateTime.Now;
 
@@ -204,7 +206,7 @@ namespace WebApplication4
                 ContextList = (ContextList)JsonConvert.DeserializeObject(text, typeof(ContextList));
             }
 
-            foreach(Context c in ContextList.Contexts)
+            foreach(var c in ContextList.Contexts)
             {
                 
                 if(c.TimeOut > 0)
