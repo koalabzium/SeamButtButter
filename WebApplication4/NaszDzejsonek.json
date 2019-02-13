@@ -1,1 +1,1 @@
-"{\"Contexts\":[{\"CreationTime\":\"2019-02-13T11:04:43.8365522+01:00\",\"ContextId\":4,\"Values\":\"{\\\"Id\\\":4,\\\"Name\\\":\\\"Zosia\\\",\\\"Address\\\":\\\"lala\\\",\\\"Products\\\":null}\",\"TimeOut\":0},{\"CreationTime\":\"2019-02-13T11:04:43.8365022+01:00\",\"ContextId\":1,\"Values\":\"{\\\"Id\\\":1,\\\"Name\\\":\\\"a\\\",\\\"Address\\\":\\\"Bronks\\\",\\\"Products\\\":null}\",\"TimeOut\":0}]}"
+"{\"Contexts\":[{\"ContextId\":6,\"Values\":\"{\\\"Id\\\":6,\\\"Name\\\":null,\\\"Address\\\":null,\\\"Products\\\":null}\",\"TimeOut\":1}]}"

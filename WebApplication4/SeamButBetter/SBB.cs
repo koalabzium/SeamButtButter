@@ -54,8 +54,8 @@ namespace WebApplication4
             text = Regex.Unescape(text);
 
             var exists = false;
-
-            Context tmp = new Context(id, json, defaultTimeout);
+            var now = DateTime.Now;
+            Context tmp = new Context(id, json, defaultTimeout, now);
 
             if (text.Length > 0)
             {
@@ -193,12 +193,13 @@ namespace WebApplication4
                 ContextList = (ContextList)JsonConvert.DeserializeObject(text, typeof(ContextList));
             }
 
-            foreach(Context c in ContextList.Contexts)
+            foreach(var c in ContextList.Contexts)
             {
                 
                 if(c.TimeOut > 0)
                 {
-                    if(DateTime.Now.Subtract(c.CreationTime).TotalMinutes <= 0)
+                    var minutki = DateTime.Now.Subtract(c.GetCreationTime()).TotalMinutes;
+                    if (DateTime.Now.Subtract(c.GetCreationTime()).TotalMinutes >= c.TimeOut)
                     {
                         toRemove.Add(c);
                     }
