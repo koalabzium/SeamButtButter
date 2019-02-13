@@ -49,18 +49,18 @@ namespace WebApplication4.Pages
                 return Page();
             }
 
+            _sbb.Update<Customer>(Customer.Id, Customer);
 
+            //_db.Attach(Customer).State = EntityState.Modified;
 
-            _db.Attach(Customer).State = EntityState.Modified;
-
-            try
-            {
-                await _db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException e)
-            {
-                throw new Exception($"Customer {Customer.Id} not found", e);
-            }
+            //try
+            //{
+            //    await _db.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException e)
+            //{
+            //    throw new Exception($"Customer {Customer.Id} not found", e);
+            //}
 
             return RedirectToPage("./Step2", new { id = Customer.Id });
         }

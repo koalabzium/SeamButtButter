@@ -11,10 +11,12 @@ namespace WebApplication4.Pages
     public class Step2Model : PageModel
     {
         private readonly AppDbContext _db;
+        private SBB _sbb { get; set; }
 
         public Step2Model(AppDbContext db)
         {
             _db = db;
+            _sbb = SBB.Instance("./NaszDzejsonek");
         }
 
         [BindProperty]
@@ -22,11 +24,22 @@ namespace WebApplication4.Pages
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            Customer = await _db.Customers.FindAsync(id);
-            if (Customer == null)
+
+
+            var customer = _sbb.Get(id);
+            if (customer == null)
             {
-                return RedirectToPage("/Index");
+                return RedirectToPage("/Index", new { id = id });
             }
+            Customer = new Customer();
+            Customer = Customer.Deserialize(customer);
+
+
+            //Customer = await _db.Customers.FindAsync(id);
+            //if (Customer == null)
+            //{
+            //    return RedirectToPage("/Index");
+            //}
             return Page();
         }
 
@@ -37,9 +50,11 @@ namespace WebApplication4.Pages
                 return Page();
             }
 
-            _db.Attach(Customer).State = EntityState.Modified;
+            _sbb.Update<Customer>(Customer.Id, Customer);
 
-            await _db.SaveChangesAsync();
+            //_db.Attach(Customer).State = EntityState.Modified;
+
+            //await _db.SaveChangesAsync();
             
 
             return RedirectToPage("./Index", new { id = Customer.Id });
