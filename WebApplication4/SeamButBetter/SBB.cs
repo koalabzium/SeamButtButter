@@ -127,6 +127,7 @@ namespace WebApplication4
             string text = File.ReadAllText(Path);
 
             text = Regex.Unescape(text);
+            Context toDelete = new Context();
 
             if (text.Length > 0)
             {
@@ -139,12 +140,41 @@ namespace WebApplication4
                 {
                     if (c.ContextId == id)
                     {
-                        //c.Remove();
+                        toDelete = c;
                     }
                 }
+                ContextList.Contexts.Remove(toDelete);
 
+                var settings = new JsonSerializerSettings()
+                {
+                    StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
+                };
+
+
+                var context = JsonConvert.SerializeObject(ContextList, settings);
+
+
+                using (StreamWriter file = File.CreateText(Path))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    serializer.Serialize(file, context);
+                }
             }
         }
+
+        public void DeleteAll ()
+        {
+
+        }
+
+        public void Update<T>(int id, T obj)
+        {
+            Delete(id);
+
+            Add(id, obj);
+            
+        }
+
         //public T Get<T>(int id)
         //{
         //    string toReturn = null;

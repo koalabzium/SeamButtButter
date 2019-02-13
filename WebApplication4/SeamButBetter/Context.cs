@@ -15,5 +15,10 @@ namespace WebApplication4
             ContextId = Id;
             Values = Json;
         }
+
+        public Context()
+        {
+
+        }
     }
 }

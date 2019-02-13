@@ -45,15 +45,17 @@ namespace WebApplication4.Pages
             
         }
 
-        public async Task<IActionResult> OnPostKupaAsync(int id)
+        public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
-            var customer = await _db.Customers.FindAsync(id);
+            //var customer = await _db.Customers.FindAsync(id);
 
-            if (customer != null)
-            {
-                _db.Customers.Remove(customer);
-                await _db.SaveChangesAsync();
-            }
+            //if (customer != null)
+            //{
+            //    _db.Customers.Remove(customer);
+            //    await _db.SaveChangesAsync();
+            //}
+
+            _sbb.Delete(id);
 
             return RedirectToPage();
         }
