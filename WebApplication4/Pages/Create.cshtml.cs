@@ -42,29 +42,6 @@ namespace WebApplication4.Pages
 
             //SBB.add(ser, Customer.
 
-            
-            //var exists = false;
-            //Customers = await _db.Customers.ToListAsync();
-
-            //if (Customers != null)
-            //{
-            //    foreach (var c in Customers)
-            //    {
-            //        if (c.Id == Customer.Id)
-            //        {
-            //            exists = true;
-            //            break;
-            //        }
-            //    }
-            //}
-
-            //if (!exists)
-            //{
-            //    _db.Customers.Add(Customer);
-            //    await _db.SaveChangesAsync();
-            //}
-
-
             return RedirectToPage("/Index", new { id = Customer.Id });
         }
 

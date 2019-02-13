@@ -37,11 +37,11 @@ namespace WebApplication4.SeamButBetter
 
             if (!exists)
             {
-                _db.Customers.Add(Customer);
+                _db.Contexts.Add(CurrentContext);
                 await _db.SaveChangesAsync();
             }
-            
-            return 
+
+            return obj;
 
         }
 
@@ -52,6 +52,13 @@ namespace WebApplication4.SeamButBetter
 
         public void Delete(int id)
         {
+            //var Curre = await _db.Customers.FindAsync(id);
+
+            //if (customer != null)
+            //{
+            //    _db.Customers.Remove(customer);
+            //    await _db.SaveChangesAsync();
+            //}
             throw new NotImplementedException();
         }
 
@@ -66,4 +73,4 @@ namespace WebApplication4.SeamButBetter
         }
     }
 }
-}
+
