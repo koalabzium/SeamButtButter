@@ -54,8 +54,6 @@ namespace WebApplication4
             text = Regex.Unescape(text);
 
             var exists = false;
-            var now = DateTime.Now;
-            Context tmp = new Context(id, json, defaultTimeout, now);
 
             DateTime now = DateTime.Now;
 
@@ -79,8 +77,6 @@ namespace WebApplication4
                             toDelete = c;
                             exists = false;
                         }
-                        
-
                     }
                 }
 
