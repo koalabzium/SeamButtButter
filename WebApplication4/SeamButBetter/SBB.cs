@@ -16,7 +16,7 @@ namespace WebApplication4
         private static SBB instance = null;
         private static readonly object padlock = new object();
 
-        public int defaultTimeout;
+        public int DefaultTimeout;
         public string Path;
         public ContextList ContextList { get; set; }
 
@@ -37,7 +37,7 @@ namespace WebApplication4
         {
             ContextList = new ContextList();
             Path = path;
-            defaultTimeout = Timeout;
+            DefaultTimeout = Timeout;
         }
 
 
@@ -55,7 +55,9 @@ namespace WebApplication4
 
             var exists = false;
 
-            Context tmp = new Context(id, json, defaultTimeout);
+            DateTime now = DateTime.Now;
+
+            Context tmp = new Context(id, json, DefaultTimeout, now);
 
             if (text.Length > 0)
             {
@@ -198,7 +200,7 @@ namespace WebApplication4
                 
                 if(c.TimeOut > 0)
                 {
-                    if(DateTime.Now.Subtract(c.CreationTime).TotalMinutes <= 0)
+                    if (DateTime.Now.Subtract(c.CreationTime).TotalMinutes >= DefaultTimeout)
                     {
                         toRemove.Add(c);
                     }

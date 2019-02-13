@@ -9,7 +9,7 @@ namespace WebApplication4
     {
         public int ContextId { get; set; }
         public string Values { get; set; }
-        public readonly DateTime CreationTime = DateTime.Now;
+        public DateTime CreationTime;
         public int TimeOut { get; set; }
 
         public Context(int Id, string Json)
@@ -18,11 +18,12 @@ namespace WebApplication4
             Values = Json;
         }
 
-        public Context(int Id, string Json, int _TimeOut)
+        public Context(int Id, string Json, int _TimeOut, DateTime _timeNow)
         {
             ContextId = Id;
             Values = Json;
             TimeOut = _TimeOut;
+            CreationTime = _timeNow;
         }
 
         public Context()

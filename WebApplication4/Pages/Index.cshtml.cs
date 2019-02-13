@@ -21,7 +21,7 @@ namespace WebApplication4.Pages
         public IndexModel(AppDbContext db)
         {
             _db = db;
-            _sbb = SBB.Instance("./NaszDzejsonek.json");
+            _sbb = SBB.Instance("./NaszDzejsonek.json",1);
 
         }
 
