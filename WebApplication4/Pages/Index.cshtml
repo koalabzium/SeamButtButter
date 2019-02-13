@@ -3,34 +3,35 @@
 @{
     ViewData["Title"] = "Home page";
 }
-
 <form method="post">
+    <br />
     <table class="table">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Name</th>
-                <th>Address</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>Miasto</th>
             </tr>
         </thead>
         <tbody>
-            
+
             <tr>
                 <td>@Model.Customer.Id</td>
                 <td>@Model.Customer.Name</td>
-                <td>@Model.Customer.Address</td>
+                <td>@Model.Customer.Surname</td>
+                <td>@Model.Customer.City</td>
                 <td>
                     <button type="submit" asp-page-handler="Delete"
                             asp-route-id="@Model.Customer.Id">
-                        delete
+                        Usuń
                     </button>
                 </td>
             </tr>
-            
+
         </tbody>
-
     </table>
-
     <a asp-page="/Step1" asp-page-handler="@Model.Customer.Id">Wypełnij dane</a>
-    <a asp-page="/Create">GUZIK</a>
+    <br />
+    <br /><a asp-page="/Create">Strona logowania</a>
 </form>

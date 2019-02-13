@@ -8,10 +8,11 @@ namespace WebApplication4
     [Serializable]
     public class Customer
     {
-        
+
         public int Id { get; set; } //prop tab tab
         public string Name { get; set; }
-        public string Address { get; set; }
+        public string Surname { get; set; }
+        public string City { get; set; }
         public List<Product> Products { get; set; }
 
         //[Required, StringLength(50)]
@@ -25,7 +26,7 @@ namespace WebApplication4
         public Customer Deserialize(string obj)
         {
 
-            return (Customer) JsonConvert.DeserializeObject(obj, typeof(Customer));
+            return (Customer)JsonConvert.DeserializeObject(obj, typeof(Customer));
         }
 
 

@@ -1,28 +1,30 @@
-﻿@page 
+﻿@page
+
 @model WebApplication4.Pages.Step1Model
 @{
-    ViewData["Title"] = "Step1";
+    ViewData["Title"] = "krok1";
 }
-
-<h2>Krok pierwszy dla użytkownika @Model.Customer.Id</h2>
-
+<h3>ID = @Model.Customer.Id</h3>
+<h4>Podaj imię i nazwisko</h4>
 <form method="post">
     <input asp-for="Customer.Id" type="hidden" />
-    <input asp-for="Customer.Address" type="hidden" />
+    <input asp-for="Customer.City" type="hidden" />
     <div>
-        <label asp-for="Customer.Name"></label>
+        <label asp-for="Customer.Name">Imię</label>
         <div>
             <input asp-for="Customer.Name" />
         </div>
+        <br />
+        <label asp-for="Customer.Surname">Nazwisko</label>
+        <div>
+            <input asp-for="Customer.Surname" />
+        </div>
     </div>
+    <br />
     <div>
-        <button type="submit">Next</button>
+        <button type="submit">Dalej</button>
     </div>
 </form>
-
-
-
-
 
 
 

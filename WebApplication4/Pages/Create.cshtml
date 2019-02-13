@@ -3,12 +3,14 @@
 @{
     ViewData["Title"] = "Create";
 }
-
 <h2>Witaj!</h2>
-<p>Podaj swoje id</p>
+<br />
+<p>Podaj swoje ID</p>
 <form method="post">
     <div asp-validation-summary="All"></div>
-    <div>Id: <input asp-for="Customer.Id"/></div>
-    <input type="submit"/>
-    
+    <br />
+    <div>ID: <input asp-for="Customer.Id" /></div>
+    <br />
+    <input type="submit" />
+
 </form>
