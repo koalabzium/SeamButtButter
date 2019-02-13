@@ -20,7 +20,6 @@
                 <td>@Model.Customer.Name</td>
                 <td>@Model.Customer.Address</td>
                 <td>
-                    <a asp-page="/Edit" asp-page-handler="@Model.Customer.Id">edit</a>
                     <button type="submit" asp-page-handler="Delete"
                             asp-route-id="@Model.Customer.Id">
                         delete
