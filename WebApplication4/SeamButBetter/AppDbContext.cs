@@ -9,7 +9,7 @@ namespace WebApplication4
 
         }
 
-        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Context> Contexts { get; set; }
         //public DbSet<Product> Products { get; set; }
     }
 }

@@ -7,20 +7,20 @@ namespace WebApplication4
 {
     public class Context
     {
-        public int ContextId { get; set; }
+        public int Id { get; set; }
         public string Values { get; set; }
         public DateTime CreationTime;
         public int TimeOut { get; set; }
 
         public Context(int Id, string Json)
         {
-            ContextId = Id;
+            this.Id = Id;
             Values = Json;
         }
 
         public Context(int Id, string Json, int _TimeOut, DateTime _timeNow)
         {
-            ContextId = Id;
+            this.Id = Id;
             Values = Json;
             TimeOut = _TimeOut;
             CreationTime = _timeNow;

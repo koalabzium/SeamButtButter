@@ -16,7 +16,7 @@ namespace WebApplication4.Pages
         public Step1Model(AppDbContext db)
         {
             _db = db;
-            _sbb = SBB.Instance("./NaszDzejsonek");
+            _sbb = SBB.Instance(new FileDriver("./NaszDzejsonek"));
         }
 
         [BindProperty]
