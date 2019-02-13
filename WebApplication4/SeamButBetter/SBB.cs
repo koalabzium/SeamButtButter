@@ -122,6 +122,29 @@ namespace WebApplication4
         }
 
 
+        public void Delete (int id)
+        {
+            string text = File.ReadAllText(Path);
+
+            text = Regex.Unescape(text);
+
+            if (text.Length > 0)
+            {
+                text = text.Remove(0, 1);
+                text = text.Remove(text.Length - 1, 1);
+
+                ContextList = (ContextList)JsonConvert.DeserializeObject(text, typeof(ContextList));
+
+                foreach (var c in ContextList.Contexts)
+                {
+                    if (c.ContextId == id)
+                    {
+                        //c.Remove();
+                    }
+                }
+
+            }
+        }
         //public T Get<T>(int id)
         //{
         //    string toReturn = null;
