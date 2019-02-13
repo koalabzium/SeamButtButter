@@ -58,7 +58,7 @@ namespace WebApplication4
             DateTime now = DateTime.Now;
 
             Context tmp = new Context(id, json, DefaultTimeout, now);
-
+            Context toDelete = new Context();
             if (text.Length > 0)
             {
                 text = text.Remove(0, 1);
@@ -71,11 +71,20 @@ namespace WebApplication4
                     if (c.ContextId == tmp.ContextId)
                     {
                         exists = true;
+
+                        if (DateTime.Now.Subtract(c.CreationTime).TotalMinutes >= DefaultTimeout)
+                        {
+                            toDelete = c;
+                            exists = false;
+                        }
+                        
+
                     }
                 }
 
             }
 
+            Delete(toDelete.ContextId);
 
             if (!exists)
             {
