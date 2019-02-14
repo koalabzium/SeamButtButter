@@ -28,7 +28,7 @@ namespace ConversationManager.SeamButBetter
             {
                 foreach (var c in ContextList)
                 {
-                    if (c.GetId() == CurrentContext.GetId())
+                    if (c.Equals(CurrentContext))
                     {
                         exists = true;
                         break;

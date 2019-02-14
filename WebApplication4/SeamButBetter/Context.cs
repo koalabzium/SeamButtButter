@@ -11,7 +11,7 @@ namespace ConversationManager.SeamButBetter
         private int Id;
 
         [JsonProperty]
-        private DbDriver Driver;
+        private IDriver Driver;
 
         public string Values;
 
@@ -19,7 +19,7 @@ namespace ConversationManager.SeamButBetter
 
         public int TimeOut { get; set; }
 
-        public Context(int Id, string Json, DbDriver driver)
+        public Context(int Id, string Json, IDriver driver)
         {
             this.Id = Id;
             Values = Json;
@@ -63,7 +63,7 @@ namespace ConversationManager.SeamButBetter
             return Id;
         }
 
-        public DbDriver GetDriver()
+        public IDriver GetDriver()
         {
             return Driver;
         }
