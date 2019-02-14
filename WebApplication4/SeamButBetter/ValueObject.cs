@@ -19,11 +19,6 @@ namespace ConversationManager.SeamButBetter
 
             ValueObject other = (ValueObject)obj;
 
-            //if(other.GetId() == this.Id && other.GetDriver() == this.Driver)
-            //{
-            //    return true;
-            //}
-
             IEnumerator<object> thisValues = GetAtomicValues().GetEnumerator();
             IEnumerator<object> otherValues = other.GetAtomicValues().GetEnumerator();
             while (thisValues.MoveNext() && otherValues.MoveNext())
@@ -59,9 +54,7 @@ namespace ConversationManager.SeamButBetter
         }
 
         protected abstract IEnumerable<object> GetAtomicValues();
-      
 
-        
 
     }
 }

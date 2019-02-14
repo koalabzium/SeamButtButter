@@ -20,7 +20,7 @@ namespace ConversationManager.SeamButBetter
 
         public void CheckTimeout()
         {
-            throw new NotImplementedException();
+            tdg.CheckTimeout();
         }
 
         public void Delete(int id)

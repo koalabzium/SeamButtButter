@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ConversationManager.SeamButBetter;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Runtime.Serialization.Json;
 namespace ConversationManager
 {
-    public class SBB
+    public class SBB : ISBB
     {
         private static SBB instance = null;
         private static readonly object padlock = new object();

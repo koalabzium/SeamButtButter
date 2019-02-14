@@ -11,7 +11,7 @@ namespace ConversationManager.SeamButBetter
         private int Id;
 
         [JsonProperty]
-        private IDriver Driver;
+        private string Driver;
 
         public string Values;
 
@@ -19,7 +19,7 @@ namespace ConversationManager.SeamButBetter
 
         public int TimeOut { get; set; }
 
-        public Context(int Id, string Json, IDriver driver)
+        public Context(int Id, string Json, string driver)
         {
             this.Id = Id;
             Values = Json;
@@ -39,15 +39,10 @@ namespace ConversationManager.SeamButBetter
 
         }
 
-
-        
-
         protected override IEnumerable<object> GetAtomicValues()
         {
-            // Using a yield return statement to return each element one at a time
             yield return Id;
             yield return Driver;
-
         }
 
         public override int GetHashCode()
@@ -63,7 +58,7 @@ namespace ConversationManager.SeamButBetter
             return Id;
         }
 
-        public IDriver GetDriver()
+        public string GetDriver()
         {
             return Driver;
         }

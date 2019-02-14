@@ -12,7 +12,6 @@ namespace ConversationManager
         public string Name { get; set; }
         public string Surname { get; set; }
         public string City { get; set; }
-        public List<Product> Products { get; set; }
 
         public string Serialize()
         {
