@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using WebApplication4.SeamButBetter;
+using ConversationManager.SeamButBetter;
 
-namespace WebApplication4.Pages
+namespace ConversationManager.Pages
 {
     public class Step2Model : PageModel
     {

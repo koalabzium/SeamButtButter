@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebApplication4
+namespace ConversationManager
 {
     public class Product
     {

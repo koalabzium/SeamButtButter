@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
-namespace WebApplication4
+namespace ConversationManager
 {
     [Serializable]
     public class Customer
     {
 
-        public int Id { get; set; } //prop tab tab
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string City { get; set; }
         public List<Product> Products { get; set; }
-
-        //[Required, StringLength(50)]
-        //public string Name { get; set; }
 
         public string Serialize()
         {

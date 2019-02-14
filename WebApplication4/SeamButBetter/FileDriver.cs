@@ -2,11 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
-namespace WebApplication4.SeamButBetter
+namespace ConversationManager.SeamButBetter
 {
     public class FileDriver : IDriver
     {
@@ -21,30 +19,7 @@ namespace WebApplication4.SeamButBetter
             DefaultTimeout = _TimeOut;
         }
 
-        private string RemoveFromText(string txt)
-        {
-            txt = txt.Remove(0, 1);
-            txt = txt.Remove(txt.Length - 1, 1);
-            return txt;
-        }
-
-        private void SerializeAndSave(ContextList ContextList)
-        {
-            var settings = new JsonSerializerSettings()
-            {
-                StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
-            };
-
-
-            var context = JsonConvert.SerializeObject(ContextList, settings);
-
-
-            using (StreamWriter file = File.CreateText(Path))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(file, context);
-            }
-        }
+        
 
         public void Add<T>(int id, T obj)
         {
@@ -67,7 +42,7 @@ namespace WebApplication4.SeamButBetter
 
                 foreach (var c in ContextList.Contexts)
                 {
-                    if (c.GetId() == tmp.GetId())
+                    if (c.Equals(tmp))
                     {
                         exists = true;
 
@@ -174,44 +149,33 @@ namespace WebApplication4.SeamButBetter
                 {
                     Delete(c.GetId());
                 }
-
             }
-
         }
 
+        private string RemoveFromText(string txt)
+        {
+            txt = txt.Remove(0, 1);
+            txt = txt.Remove(txt.Length - 1, 1);
+            return txt;
+        }
 
-        //public T Get<T>(int id)
-        //{
-        //    string toReturn = null;
-        //    string text = File.ReadAllText(Path);
-        //    text = Regex.Unescape(text);
-        //    if (text.Length > 0)
-        //    {
-        //        text = text.Remove(0, 1);
-        //        text = text.Remove(text.Length - 1, 1);
-
-        //        ContextList = (ContextList)JsonConvert.DeserializeObject(text, typeof(ContextList));
+        private void SerializeAndSave(ContextList ContextList)
+        {
+            var settings = new JsonSerializerSettings()
+            {
+                StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
+            };
 
 
+            var context = JsonConvert.SerializeObject(ContextList, settings);
 
-        //        foreach (var c in ContextList.Contexts)
-        //        {
-        //            if (c.ContextId == id)
-        //            {
-        //                var something = c.Values;
-        //                using (MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(something)))
-        //                {
-        //                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(T));
-        //                    return (T)serializer.ReadObject(ms);
-        //                }
 
-        //            }
-        //        }
-
-        //    }
-
-        //    return (T)Convert.ChangeType(null, typeof(T));
-        //}
+            using (StreamWriter file = File.CreateText(Path))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, context);
+            }
+        }
     }
 }
 

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using WebApplication4.SeamButBetter;
+using ConversationManager.SeamButBetter;
 
-namespace WebApplication4.Pages
+namespace ConversationManager.Pages
 {
     public class Step1Model : PageModel
     {
@@ -15,7 +11,7 @@ namespace WebApplication4.Pages
 
         public Step1Model()
         {
-            _sbb = SBB.Instance(new FileDriver("./NaszDzejsonek"));
+            _sbb = SBB.Instance(new FileDriver("./JsonFile"));
         }
 
         [BindProperty]
@@ -31,12 +27,6 @@ namespace WebApplication4.Pages
             }
             Customer = new Customer();
             Customer = Customer.Deserialize(customer);
-
-            //Customer = await _db.Customers.FindAsync(handler);
-            //if (Customer == null)
-            //{
-            //    return RedirectToPage("/Index", new { id = handler });
-            //}
 
             return Page();
         }

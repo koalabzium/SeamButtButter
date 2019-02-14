@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using WebApplication4.SeamButBetter;
+using ConversationManager.SeamButBetter;
 
-namespace WebApplication4.Pages
+namespace ConversationManager.Pages
 {
     public class IndexModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace WebApplication4.Pages
 
         public IndexModel()
         {
-            _sbb = SBB.Instance(new FileDriver("./NaszDzejsonek.json",1));
+            _sbb = SBB.Instance(new FileDriver("./JsonFile.json",1));
 
         }
 

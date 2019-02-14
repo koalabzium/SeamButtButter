@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApplication4.SeamButBetter
+namespace ConversationManager.SeamButBetter
 {
     public class TableDataGateway
     {
@@ -85,8 +84,7 @@ namespace WebApplication4.SeamButBetter
         public async Task<int> Update<T>(int id, T obj)
         {
             await Delete(id);
-            await AddAsync<T>(id, obj);
-           
+            await AddAsync<T>(id, obj);          
             return id;
         }
     }

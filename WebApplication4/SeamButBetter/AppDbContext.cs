@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace WebApplication4.SeamButBetter
+namespace ConversationManager.SeamButBetter
 {
     public class AppDbContext : DbContext
     {
@@ -10,6 +10,5 @@ namespace WebApplication4.SeamButBetter
         }
 
         public DbSet<Context> Contexts { get; set; }
-        //public DbSet<Product> Products { get; set; }
     }
 }
